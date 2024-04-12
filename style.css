@@ -1,0 +1,88 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: var(--quicksandfont);
+}
+
+/* CSS Custom Variables */
+:root{
+    --grid-width: 170px;
+    --grid-height: 140px;
+    --quicksandfont: "Quicksand";
+}
+
+main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+/* Grid Container Styling */
+#container {
+    display: grid;
+    grid-template-columns: repeat(3, var(--grid-width));
+}
+#container *{
+    border: 3px solid magenta;
+    border-collapse: collapse;
+}
+#container div {
+    height: var(--grid-height);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 120px;
+    cursor: pointer;
+    color: magenta;
+    font-weight: 900;
+}
+#box1, #box2, #box3{
+    border-top: 0px;
+}
+#box1, #box4, #box7{
+    border-left: 0px;
+}
+#box3, #box6, #box9{
+    border-right: 0px;
+}
+#box7, #box8, #box9{
+    border-bottom: 0px;
+}
+dialog{
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 400px;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+dialog::backdrop{
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.8);
+
+}
+
+#demo{
+    font-size: 38px;
+    font-weight: 500;
+    color: magenta;
+    margin-bottom: 25px;
+}
+#playAgain{
+    background-color: transparent;
+    color: magenta;
+    border: 2px magenta solid;
+    outline: 0px;
+    border-radius: 7px;
+    padding: 15px 25px;
+    font-size: 17px;
+    font-weight: 600;
+}
+#playAgain:hover{
+    transform: scale(1.09);
+    transition: transform 0.5s ease-in-out;
+}
