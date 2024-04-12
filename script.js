@@ -66,7 +66,7 @@ container.addEventListener("click", element => {
         playerRound.resultChecker()
         if(playerRound.resultChecker() === "Player 1 wins" || playerRound.resultChecker() === "Player 2 wins"){
             dialogResult.showModal();
-            demo.innerText = playerRound.resultChecker();;
+            demo.innerText = playerRound.resultChecker();
         }
         else if(gameBoard.board .length === 0){
             dialogResult.showModal();
