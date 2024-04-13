@@ -4,9 +4,16 @@ let demo = document.getElementById("demo");
 let playAgain = document.getElementById("playAgain");
 let dialogResult = document.getElementById("dialogResult");
 let boxes = document.querySelectorAll(".box");
+let refreshButton = document.getElementById("refreshbutton")
+//Score Variables
+let player1score = document.getElementById("player1score");
+let player1scoreValue = Number(player1score.innerText);
 
-// The game logic
+let player2score = document.getElementById("player2score");
+let player2scoreValue = Number(player2score.innerText);
 
+let tiescore = document.getElementById("tiescore");
+let tiescoreValue = Number(tiescore.innerText);
 // Defining gameboard object
 const gameBoard = {
     board : ["box1", "box2", "box3", "box4", "box5", "box6", "box7", "box8", "box9"],
@@ -20,10 +27,9 @@ function Player(name, sign){
 
 const player1 = Player("Player 1", "x");
 const player2 = Player("Player 2", "o");
+let currentPlayer = 2;
 
 let playerRound = (function(){
-    let currentPlayer = 2;
-
     switchUser = () => {
         currentPlayer = currentPlayer === 1 ? 2 : 1;
         return currentPlayer === 1 ? player1 : player2;
@@ -46,9 +52,23 @@ let playerRound = (function(){
     resultChecker = () => {
         if(checkWinner(gameBoard.firstPlayer)) return "Player 1 wins";
         else if(checkWinner(gameBoard.secondPlayer)) return "Player 2 wins";
+        else if(gameBoard.board.length === 0) return "TIE !";
     } 
+    scoreAdder = () => {
+        if(resultChecker() === "Player 1 wins") player1score.innerText = ++player1scoreValue;
+        else if(resultChecker() === "Player 2 wins") player2score.innerText = ++player2scoreValue;
+        else if(resultChecker() === "TIE !") tiescore.innerText= ++tiescoreValue;
+    }
+    refreshScores = () => {
+        player1scoreValue = 0;
+        player2scoreValue = 0;
+        tiescoreValue = 0;
 
-    return { switchUser, resultChecker }
+        player1score.innerText = player1scoreValue;
+        player2score.innerText = player2scoreValue;
+        tiescore.innerText = tiescoreValue;
+    }
+    return { switchUser, resultChecker, scoreAdder, refreshScores}
 }());
 
 container.addEventListener("click", element => {
@@ -61,26 +81,23 @@ container.addEventListener("click", element => {
         gameBoard.board.splice(currentIndex, 1);
     
         player.name === "Player 1" ? gameBoard.firstPlayer.push(box.id) : gameBoard.secondPlayer.push(box.id);
-        
-        console.log(gameBoard.board == [])
         playerRound.resultChecker()
-        if(playerRound.resultChecker() === "Player 1 wins" || playerRound.resultChecker() === "Player 2 wins"){
+        if(playerRound.resultChecker() === "Player 1 wins" || playerRound.resultChecker() === "Player 2 wins" || playerRound.resultChecker() === "TIE !"){
             dialogResult.showModal();
             demo.innerText = playerRound.resultChecker();
         }
-        else if(gameBoard.board .length === 0){
-            dialogResult.showModal();
-            demo.innerText =  "TIE !"
-        } 
+        playerRound.scoreAdder()
     }});
-    
+1
     playAgain.addEventListener("click", () => {
         dialogResult.close();
+        currentPlayer = 2;
         gameBoard.board = ["box1", "box2", "box3", "box4", "box5", "box6", "box7", "box8", "box9"];
         gameBoard.firstPlayer = [];
         gameBoard.secondPlayer = [];
 
         boxes.forEach(box => box.innerText = "")
     })
+    refreshButton.addEventListener("click", playerRound.refreshScores)
 
   

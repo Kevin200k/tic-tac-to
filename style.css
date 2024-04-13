@@ -7,8 +7,8 @@ body{
 
 /* CSS Custom Variables */
 :root{
-    --grid-width: 170px;
-    --grid-height: 140px;
+    --grid-width: 160px;
+    --grid-height: 120px;
     --quicksandfont: "Quicksand";
 }
 
@@ -16,8 +16,10 @@ main{
     width: 100%;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
     background-color: black;
 }
 /* Grid Container Styling */
@@ -26,7 +28,7 @@ main{
     grid-template-columns: repeat(3, var(--grid-width));
 }
 #container *{
-    border: 3px solid magenta;
+    border: 3px solid white;
     border-collapse: collapse;
 }
 #container div {
@@ -37,7 +39,7 @@ main{
     align-items: center;
     font-size: 120px;
     cursor: pointer;
-    color: magenta;
+    color: white;
     font-weight: 900;
 }
 #box1, #box2, #box3{
@@ -69,20 +71,52 @@ dialog::backdrop{
 #demo{
     font-size: 38px;
     font-weight: 500;
-    color: magenta;
+    color: white;
     margin-bottom: 25px;
 }
 #playAgain{
     background-color: transparent;
-    color: magenta;
-    border: 2px magenta solid;
+    color: white;
+    border: 2px white solid;
     outline: 0px;
     border-radius: 7px;
     padding: 15px 25px;
     font-size: 17px;
     font-weight: 600;
+    font-family: var(--quicksandfont);
 }
 #playAgain:hover{
     transform: scale(1.09);
     transition: transform 0.5s ease-in-out;
+}
+#scorebar{
+    /* height: fit-content; */
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+#scorebar div{
+    font-size: 21px;
+}
+#scorebar div:last-child p{
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+#scorebar div div{
+    text-align: center;
+    font-weight: 500;
+}
+#scorebar img{
+    height: 26px;
+    position: absolute;
+    right: -50px;
+    margin-left: 20px;
+}
+#scorebar div:last-child{
+    position: relative;
 }
