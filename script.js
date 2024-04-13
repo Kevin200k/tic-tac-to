@@ -5,6 +5,7 @@ let playAgain = document.getElementById("playAgain");
 let dialogResult = document.getElementById("dialogResult");
 let boxes = document.querySelectorAll(".box");
 let refreshButton = document.getElementById("refreshbutton")
+let root = document.querySelector(":root")
 //Score Variables
 let player1score = document.getElementById("player1score");
 let player1scoreValue = Number(player1score.innerText);
@@ -18,7 +19,8 @@ let tiescoreValue = Number(tiescore.innerText);
 const gameBoard = {
     board : ["box1", "box2", "box3", "box4", "box5", "box6", "box7", "box8", "box9"],
     firstPlayer : [],
-    secondPlayer : []
+    secondPlayer : [],
+    color: ["#fff", "#FCCB06", "#B1DDF1", "#CA2C92", "#FFFFFA", "#E5F4E3", "#FFECD1", "#DDDBCB", "#BA0203", "#A5A9AE", "#F5CB5C", "#FFD000", "#AB00C0"]
 }
 // Defining player objects
 function Player(name, sign){
@@ -96,8 +98,18 @@ container.addEventListener("click", element => {
         gameBoard.firstPlayer = [];
         gameBoard.secondPlayer = [];
 
-        boxes.forEach(box => box.innerText = "")
+        boxes.forEach(box => box.innerText = "");
+        let colorIndex = Math.round(Math.random() * 11)
+        root.style.setProperty("--surrounding-color", `${gameBoard.color[colorIndex]}` )
     })
-    refreshButton.addEventListener("click", playerRound.refreshScores)
+    refreshButton.addEventListener("click", () =>{
+        refreshButton.classList.remove("animationeffect");
+        if(player1scoreValue > 0 || player2scoreValue > 0 || tiescoreValue > 0){
+            refreshButton.offsetWidth;
+            refreshButton.classList.add("animationeffect");
+            playerRound.refreshScores()
+        }
+}
+)
 
   
